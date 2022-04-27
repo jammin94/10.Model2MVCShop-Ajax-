@@ -92,11 +92,12 @@ function PortalJuminCheck(fieldValue){
 	var mod = sum % 11;
 	return ((11 - mod) % 10 == last) ? true : false;
 }
-
+/*
 function fncCheckDuplication() {
 	popWin 
 		= window.open("/user/checkDuplication.jsp","popWin", "left=300,top=200,width=300,height=200,marginwidth=0,marginheight=0,scrollbars=no,scrolling=no,menubar=no,resizable=no");
 }
+*/
 
 function resetData() {
 	document.detailForm.reset();
@@ -106,34 +107,44 @@ function resetData() {
 $(function() {
 	$( "#userId" ).change(function() {
 
-		alert("changed!");
-		
+			//여기서 맨 위에 정의한 id를 사용할 수 없다 
 			var userId = $(this).val();
-			
-			/* $.ajax( 
+	
+			 $.ajax( 
 					{
-						url : "/user/json/checkDuplication ,
+						url : "/user/json/checkDuplication" ,
 						method : "POST" ,
 						dataType : "json" ,
 						headers : {
 							"Accept" : "application/json",
 							"Content-Type" : "application/json"
 						},
+						data : JSON.stringify({
+							"userId" : userId
+						}),
 						success : function(JSONData , status) {
-							
-							var displayValue = "<h3>"
-														+"아이디 : "+JSONData.userId+"<br/>"
-														+"이  름 : "+JSONData.userName+"<br/>"
-														+"이메일 : "+JSONData.email+"<br/>"
-														+"ROLE : "+JSONData.role+"<br/>"
-														+"등록일 : "+JSONData.regDateString+"<br/>"
-														+"</h3>";
-
-							$("h3").remove();
-							$( "#"+userId+"" ).html(displayValue);
+	
+							var displayValue = JSONData.result;		
+							$("td[name='checkDuplication']").text(displayValue);
 						}
-				});  */
+				});
+			
 	});
+	
+	
+	$( "input[type='password']").change(function() {
+		
+		 if($("input[name='password']").val() != $("input[name='password2']").val()) {
+			
+			$("td[name='passwordCheck']").text("비밀번호 확인이 일치하지 않습니다.");
+			$("td:contains('확인')").css("color","red");
+		} else{
+			$("td[name='passwordCheck']").text("");
+			$("td:contains('확인')").css("color","black");
+		}
+	});
+
+			 
 });	
 
 </script>
@@ -180,7 +191,7 @@ $(function() {
 						<input 	type="text" name="userId" class="ct_input_bg" id="userId" 
 										style="width:100px; height:19px"  maxLength="20" >
 					</td>
-					<td>
+					<td name="checkDuplication"><!-- 
 						<table border="0" cellspacing="0" cellpadding="0">
 							<tr>
 								<td width="4" height="21">
@@ -194,6 +205,8 @@ $(function() {
 								</td>
 							</tr>
 						</table>
+						 -->
+						 
 					</td>
 				</tr>
 			</table>
@@ -228,6 +241,7 @@ $(function() {
 			<input 	type="password" name="password2" class="ct_input_g" 
 							style="width:100px; height:19px"  maxLength="10" minLength="6"  />
 		</td>
+		<td name="passwordCheck"> </td>
 	</tr>
 	
 	<tr>

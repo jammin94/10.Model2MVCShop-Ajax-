@@ -12,53 +12,7 @@ function fncGetPurchaseList(currentPage){
 	document.getElementById("currentPage").value = currentPage;
    	document.detailForm.submit();	
 }
-$(function() {
 
-	 $( "td.ct_btn01:contains('검색')" ).on("click" , function() {
-		//Debug..
-		//alert(  $( "td.ct_btn01:contains('검색')" ).html() );
-		fncGetUserList(1);
-	});
-	
-
-	$( ".ct_list_pop td:nth-child(3)" ).on("click" , function() {
-
-			var userId = $(this).text().trim();
-			$.ajax( 
-					{
-						url : "/user/json/getUser/"+userId ,
-						method : "GET" ,
-						dataType : "json" ,
-						headers : {
-							"Accept" : "application/json",
-							"Content-Type" : "application/json"
-						},
-						success : function(JSONData , status) {
-							//alert(status);
-							//alert("JSONData : \n"+JSONData);
-							
-							var displayValue = "<h3>"
-														+"아이디 : "+JSONData.userId+"<br/>"
-														+"이  름 : "+JSONData.userName+"<br/>"
-														+"이메일 : "+JSONData.email+"<br/>"
-														+"ROLE : "+JSONData.role+"<br/>"
-														+"등록일 : "+JSONData.regDateString+"<br/>"
-														+"</h3>";								
-							//alert(displayValue);
-							$("h3").remove();
-							$( "#"+userId+"" ).html(displayValue);
-						}
-				});
-			
-	});
-	
-	//==> userId LINK Event End User 에게 보일수 있도록 
-	$( ".ct_list_pop td:nth-child(3)" ).css("color" , "red");
-	$("h7").css("color" , "red");
-	
-	//==> 아래와 같이 정의한 이유는 ??
-	$(".ct_list_pop:nth-child(4n+6)" ).css("background-color" , "whitesmoke");
-});	
 </script>
 </head>
 

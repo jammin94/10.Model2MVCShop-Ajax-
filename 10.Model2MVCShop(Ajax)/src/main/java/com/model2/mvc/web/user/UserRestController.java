@@ -1,5 +1,8 @@
 package com.model2.mvc.web.user;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,10 +60,18 @@ public class UserRestController {
 	}
 	
 	@RequestMapping( value="json/checkDuplication", method=RequestMethod.POST )
-	public Boolean checkDuplication( @RequestBody User user ) throws Exception{
+	public Map<String,String> checkDuplication( @RequestBody User user ) throws Exception{
 		
 		System.out.println("/user/checkDuplication : POST");
+		boolean result=userService.checkDuplication(user.getUserId());
+		Map<String,String> map = new HashMap<String, String>();
+		
+		if(!result) {
+			map.put("result", "이미 있는 회원입니다.");
+		}else {
+			map.put("result", "가능한 아이디 입니다.");
+		}
 
-		return userService.checkDuplication(user.getUserId());
+		return map;
 	}
 }

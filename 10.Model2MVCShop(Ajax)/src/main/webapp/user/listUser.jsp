@@ -58,9 +58,10 @@
 								success : function(JSONData , status) {
 
 									//Debug...
-									//alert(status);
+									alert(status);
 									//Debug...
-									//alert("JSONData : \n"+JSONData);
+									alert("JSONData : \n"+JSONData);
+									alert( "JSON.stringify(JSONData) : \n"+JSON.stringify(JSONData) );
 									
 									var displayValue = "<h3>"
 																+"¾ÆÀÌµð : "+JSONData.userId+"<br/>"
