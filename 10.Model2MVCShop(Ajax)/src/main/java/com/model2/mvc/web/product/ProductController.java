@@ -1,5 +1,8 @@
 package com.model2.mvc.web.product;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.model2.mvc.common.Page;
 import com.model2.mvc.common.Search;
@@ -63,6 +67,14 @@ public class ProductController {
 
 		System.out.println("/product/addProduct : POST");
 		//Business Logic
+		
+		MultipartFile uploadFile = product.getImageFile();
+		if(!uploadFile.isEmpty()) {
+			String fileName=uploadFile.getOriginalFilename();
+			product.setFileName(fileName);
+			uploadFile.transferTo(new File("C:\\Users\\bitcamp\\git\\10.Model2MVCShop(Ajax)\\10.Model2MVCShop(Ajax)\\src\\main\\webapp\\images\\uploadFiles"+fileName));
+			
+		}
 		productService.addProduct(product);
 		int prodNo=productService.getProductNo(product.getProdName());
 		

@@ -2,6 +2,8 @@ package com.model2.mvc.service.domain;
 
 import java.sql.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 
 public class Product {
 	
@@ -12,8 +14,17 @@ public class Product {
 	private String prodName;
 	private int prodNo;
 	private Date regDate;
+	private MultipartFile imageFile;
 	//private int inventory;
 	
+	public MultipartFile getImageFile() {
+		return imageFile;
+	}
+
+	public void setImageFile(MultipartFile imageFile) {
+		this.imageFile = imageFile;
+	}
+
 	public Product(){
 	}
 	
