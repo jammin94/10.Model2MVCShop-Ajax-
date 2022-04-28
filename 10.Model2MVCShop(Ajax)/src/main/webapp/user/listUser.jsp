@@ -24,27 +24,15 @@
 
 		//==>"검색" ,  userId link  Event 연결 및 처리
 		 $(function() {
-			 
-			//==> 검색 Event 연결처리부분
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			//==> 1 과 3 방법 조합 : $("tagName.className:filter함수") 사용함. 
+
+			 //검색 설정
 			 $( "td.ct_btn01:contains('검색')" ).on("click" , function() {
-				//Debug..
-				//alert(  $( "td.ct_btn01:contains('검색')" ).html() );
 				fncGetUserList(1);
 			});
 			
-			
-			//==> userId LINK Event 연결처리
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			//==> 3 과 1 방법 조합 : $(".className tagName:filter함수") 사용함.
+			//간편 getUser 설정
 			$( ".ct_list_pop td:nth-child(3)" ).on("click" , function() {
-					//Debug..
-					//alert(  $( this ).text().trim() );
-					
-					//////////////////////////// 추가 , 변경된 부분 ///////////////////////////////////
-					//self.location ="/user/getUser?userId="+$(this).text().trim();
-					////////////////////////////////////////////////////////////////////////////////////////////
+
 					var userId = $(this).text().trim();
 					$.ajax( 
 							{
@@ -58,10 +46,10 @@
 								success : function(JSONData , status) {
 
 									//Debug...
-									alert(status);
+									//alert(status);
 									//Debug...
-									alert("JSONData : \n"+JSONData);
-									alert( "JSON.stringify(JSONData) : \n"+JSON.stringify(JSONData) );
+									//alert("JSONData : \n"+JSONData);
+									//alert( "JSON.stringify(JSONData) : \n"+JSON.stringify(JSONData) );
 									
 									var displayValue = "<h3>"
 																+"아이디 : "+JSONData.userId+"<br/>"
@@ -86,6 +74,30 @@
 			
 			//==> 아래와 같이 정의한 이유는 ??
 			$(".ct_list_pop:nth-child(4n+6)" ).css("background-color" , "whitesmoke");
+			
+			
+			
+			
+			//무한 스크롤
+			$( "" ).on("click" , function() {
+		
+				$.ajax( 
+						{
+							url : "/user/json/listUser/" ,
+							method : "POST" ,
+							dataType : "json" ,
+							headers : {
+								"Accept" : "application/json",
+								"Content-Type" : "application/json"
+							},
+							success : function(JSONData , status) {
+										
+							}
+					});
+					////////////////////////////////////////////////////////////////////////////////////////////
+		});
+			
+			
 		});	
 		
 	</script>		
@@ -141,7 +153,7 @@
 	</tr>
 </table>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" height="100" style="margin-top:10px;">
 	<tr>
 		<td colspan="11" >
 			전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지
@@ -186,8 +198,8 @@
 	</c:forEach>
 </table>
 
+<!-- 
 
-<!-- PageNavigation Start... -->
 <table width="100%" border="0" cellspacing="0" cellpadding="0"	style="margin-top:10px;">
 	<tr>
 		<td align="center">
@@ -198,8 +210,9 @@
     	</td>
 	</tr>
 </table>
-<!-- PageNavigation End... -->
 
+
+ -->
 </form>
 </div>
 

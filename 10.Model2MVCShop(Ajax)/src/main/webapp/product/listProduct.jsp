@@ -7,6 +7,7 @@
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
 
 function fncGetProductList(currentPage){
@@ -14,6 +15,46 @@ function fncGetProductList(currentPage){
    	document.detailForm.submit();	
 }
 
+$(function() {
+	
+
+	//검색 설정
+	$( "td.ct_btn01:contains('검색')" ).on("click" , function() {
+		fncGetProductList(1);
+	});
+	
+	//간편 getProduct 설정
+	window.onscroll=function() {
+			console.log(window.scrollMaxY);
+			console.log(window.screenY);
+		/*
+			var prodNo = $(this).text().trim();
+			
+			$.ajax( 
+					{
+						url : "/product/json/getProduct/"+prodNo ,
+						method : "GET" ,
+						dataType : "json" ,
+						headers : {
+							"Accept" : "application/json",
+							"Content-Type" : "application/json"
+						},
+						success : function(JSONData , status) {
+
+							var displayValue = "<h3>"
+								+"<img src=/images/uploadFiles/"+JSONData.fileName+" align=absmiddle/><br/>"
+								+"</h3>";
+							$("h3").remove();
+							$( "#"+prodNo+"" ).html(displayValue);
+							}
+				});
+			*/
+			
+				////////////////////////////////////////////////////////////////////////////////////////////
+			
+	});
+
+});	
 </script>
 </head>
 
@@ -118,6 +159,8 @@ function fncGetProductList(currentPage){
 		<td class="ct_line02"></td>
 		<td class="ct_list_b">등록일</td>	
 		<td class="ct_line02"></td>
+		<td class="ct_list_b">간편사진보기(클릭)</td>	
+		<td class="ct_line02"></td>
 		<td class="ct_list_b">현재상태</td>
 		<td class="ct_line02"></td>	
 	</tr>
@@ -135,19 +178,24 @@ function fncGetProductList(currentPage){
 		<td></td>
 		<td align="left">${i.regDate}</td>
 		<td></td>
+		<td align="left">${i.prodNo}</td>
+		<td></td>
 		<td align="left">
 			판매중
 			<%--일단은 판매중으로만 해둘게. 이 부분에 menu=manage일 때만 구매완료 상태인 것에 대하여 옆에 배송하기 버튼 만들어줘.--%>
 		</td>		
 	</tr>
 	<tr>
-		<td colspan="13" bgcolor="D6D7D6" height="1"></td>
-	</tr>
+			<!-- //////////////////////////// 추가 , 변경된 부분 /////////////////////////////
+			<td colspan="11" bgcolor="D6D7D6" height="1"></td>
+			////////////////////////////////////////////////////////////////////////////////////////////  -->
+			<td id="${i.prodNo}" colspan="11" bgcolor="D6D7D6" height="1"></td>
+		</tr>
 	</c:forEach>
 </table>
 	
 	
-	
+
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
 	<tr>
@@ -178,6 +226,7 @@ function fncGetProductList(currentPage){
     	</td>
 	</tr>
 </table>
+
 <!--  페이지 Navigator 끝 -->
 
 </form>
