@@ -72,7 +72,7 @@ public class ProductController {
 		if(!uploadFile.isEmpty()) {
 			String fileName=uploadFile.getOriginalFilename();
 			product.setFileName(fileName);
-			uploadFile.transferTo(new File("C:\\Users\\bitcamp\\git\\10.Model2MVCShop(Ajax)\\10.Model2MVCShop(Ajax)\\src\\main\\webapp\\images\\uploadFiles"+fileName));
+			uploadFile.transferTo(new File("C:\\Users\\bitcamp\\git\\10.Model2MVCShop-Ajax-\\10.Model2MVCShop(Ajax)\\src\\main\\webapp\\images\\uploadFiles\\"+fileName));
 			
 		}
 		productService.addProduct(product);
